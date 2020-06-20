@@ -12,12 +12,20 @@
             <span>Tube</span>
         </div>
         <div class="buttons">
-            <button>Create a Room</button>
-            <button>Join a Room</button>
+            <button data-type="create">Create a Room</button>
+            <button data-type="join">Join a Room</button>
         </div>
     </section>
-    <!-- Delete later  -->
-    <div class="prompt prompt--create"></div>
-    <div class="prompt prompt--join"></div>
+    <!-- Overlay prompts start -->
+    <div class="prompt prompt--join">
+        <input type="text" name="prompt-join-input" class="prompt__input prompt__input--join"> 
+        <button class="prompt__button prompt__button--join">Join</button>
+    </div>
+    <div class="prompt prompt--create">
+        <input type="text" name="prompt-create-input" class="prompt__input prompt__input--create"> 
+        <button class="prompt__button prompt__button--create">Create</button>
+    </div>
+    <!-- Overlay prompts end -->
+    <script src="/scripts/landing-page.js"></script>
 </body>
 </html>
