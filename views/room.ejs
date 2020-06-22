@@ -6,10 +6,18 @@
     <title>Room</title>
 </head>
 <body>
-    <ul class="chat-box"></ul>
-    <input type="text" name="chat-msg" id="chat-msg">
-    <button>Send Message</button>
+    <section id="main">
+        <div id="player"></div>
+        <input type="text" name="youtube-video" id="submit-video-input">
+        <button class="submit-video-btn">Video</button>
+    </section>
+    <aside>
+        <ul class="chat__box"></ul>
+        <input type="text" name="chat-msg" id="chat__msg">
+        <button class="chat__btn">Send Message</button>
+    </aside>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="/scripts/youtube-player.js"></script>
     <script src="/scripts/room.js"></script>
 </body>
 </html>
