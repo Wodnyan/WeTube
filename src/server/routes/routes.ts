@@ -1,10 +1,10 @@
-import * as express from "express"
+import * as express from "express";
 
 export default function routes(app: express.Application) {
     app.get("/", (req, res) => {
-        res.render("index")
-    })
+        res.render("index");
+    });
     app.get("/room/:id", (req, res) => {
-        res.render("room")
-    })
+        res.render("room");
+    });
 }
