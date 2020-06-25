@@ -1,6 +1,6 @@
 @import "reset";
 
-$ytb-red: #FF0000;
+$ytb-red: #ff0000;
 $dark-ytb-red: #8f0202;
 
 #main {
@@ -10,7 +10,7 @@ $dark-ytb-red: #8f0202;
     align-items: center;
     flex-direction: column;
     .title {
-        margin-bottom: .1em;
+        margin-bottom: 0.1em;
         display: flex;
         font-size: 6em;
         span:nth-child(2) {
@@ -18,7 +18,7 @@ $dark-ytb-red: #8f0202;
         }
     }
     button {
-        padding: .8em 3em;
+        padding: 0.8em 3em;
         margin: 0 1em;
         border-radius: 2em;
         border: none;
@@ -38,7 +38,7 @@ $dark-ytb-red: #8f0202;
     left: 50%;
     flex-direction: column;
     transform: translate(-50%, -50%);
-    background-color: rgba($color: #000000, $alpha: .97);
+    background-color: rgba($color: #000000, $alpha: 0.97);
     h1 {
         color: #fff;
     }
@@ -46,7 +46,7 @@ $dark-ytb-red: #8f0202;
         display: flex;
         justify-content: center;
         align-items: center;
-        animation: .4s forwards ease fadeIn;
+        animation: 0.4s forwards ease fadeIn;
     }
 }
 @keyframes fadeIn {
