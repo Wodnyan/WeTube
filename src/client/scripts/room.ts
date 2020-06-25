@@ -1,49 +1,57 @@
-const button = document.querySelector(".chat__btn")!;
+const chatBtn = document.querySelector(".chat__btn")!;
 const chatBox = <HTMLUListElement>document.querySelector(".chat__box")!;
-const input = <HTMLInputElement>document.querySelector("#chat__msg")!;
+const input = <HTMLInputElement>document.querySelector(".chat__msg")!;
 const urlPath = window.location.pathname;
 const changeVideoBtn = document.querySelector(".submit-video-btn")!;
 const changeVideoInput = <HTMLInputElement>(
     document.querySelector("#submit-video-input")!
 );
+let chatBoxHeight = chatBox.scrollHeight;
+const scrollDown = () => {
+    chatBox.scrollTo(0, chatBoxHeight);
+};
+let username: string = "foo";
 
 changeVideoBtn.addEventListener("click", () => {
     try {
         const videoId = getYouTubeId(changeVideoInput.value);
-        loadVideo(videoId);
-        socket.emit("change video", { urlPath, videoUrl: videoId });
+        player.loadVideoById(videoId);
+        socket.emit("change video", urlPath, videoId);
     } catch (err) {
         console.log(err.message);
     }
 });
 
-socket.on("change video", (videoUrl: string) => {
-    loadVideo(videoUrl);
-    startVideo();
+socket.on("change video", (videoId: string) => {
+    player.loadVideoById(videoId);
+    player.playVideo();
 });
 
-socket.on("started video", () => {
-    startVideo();
+socket.on("started video", (timeElapsed: number) => {
+    player.seekTo(timeElapsed, true);
+    player.playVideo();
 });
 
 socket.on("paused video", () => {
-    pauseVideo();
+    player.pauseVideo();
 });
 
 socket.on("connect", () => {
-    //Change this back
-    // const username = prompt("Add a username");
-    socket.emit("subscribe", { urlPath, username: "foo" });
+    // username = prompt("Add a username")!;
+    socket.emit("subscribe", { urlPath, username });
 });
 
-socket.on("chat message", (msg: string) => {
-    addChatNode(msg, chatBox);
+socket.on("chat message", (chatMsg: string, username: string) => {
+    addChatNode(username, chatMsg, chatBox);
+    scrollDown();
 });
 
-button.addEventListener("click", (e) => {
+chatBtn.addEventListener("click", (e) => {
     const chatMsg = input.value.toString();
-    addChatNode(chatMsg, chatBox);
-    socket.emit("chat message", { chatMsg, urlPath });
+    addChatNode(username, chatMsg, chatBox);
+    chatBoxHeight = chatBox.scrollHeight;
+    scrollDown();
+    socket.emit("chat message", urlPath, chatMsg, username);
     input.value = "";
 });
 
@@ -58,8 +66,17 @@ function getYouTubeId(url: string) {
     return match[2];
 }
 
-function addChatNode(msg: string, parentNode: HTMLUListElement) {
-    const node = document.createElement("li");
-    node.textContent = msg;
-    parentNode.appendChild(node);
+function addChatNode(
+    username: string,
+    message: string,
+    parentNode: HTMLUListElement
+) {
+    parentNode.insertAdjacentHTML(
+        "beforeend",
+        `
+            <li>${username}: ${message}</li>
+        `
+    );
 }
+
+function appendErrorMessage(message: string, parentNode: HTMLElement) {}
