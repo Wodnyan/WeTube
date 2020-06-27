@@ -1,54 +1,47 @@
 const chatBtn = document.querySelector(".chat__btn")!;
 const chatBox = <HTMLUListElement>document.querySelector(".chat__box")!;
 const input = <HTMLInputElement>document.querySelector(".chat__msg")!;
+// TODO: Make the ENTER work on chat
+const chatForm = <HTMLInputElement>document.querySelector(".chat-form")!;
 const urlPath = window.location.pathname;
-const changeVideoBtn = document.querySelector(".submit-video-btn")!;
+const changeVideoBtn = document.querySelector(".submit-video__btn")!;
 const changeVideoInput = <HTMLInputElement>(
-    document.querySelector("#submit-video-input")!
+    document.querySelector("#submit-video__input")!
 );
+
 let chatBoxHeight = chatBox.scrollHeight;
-const scrollDown = () => {
-    chatBox.scrollTo(0, chatBoxHeight);
-};
+function scrollDown(htmlElement: HTMLElement, htmlElementHeight: number) {
+    htmlElement.scrollTo(0, htmlElementHeight);
+}
+
 let username: string = "foo";
+
+document.title = urlPath;
 
 changeVideoBtn.addEventListener("click", () => {
     try {
         const videoId = getYouTubeId(changeVideoInput.value);
-        player.loadVideoById(videoId);
         socket.emit("change video", urlPath, videoId);
+        player.loadVideoById(videoId);
     } catch (err) {
         console.log(err.message);
     }
 });
 
-socket.on("change video", (videoId: string) => {
-    player.loadVideoById(videoId);
-    player.playVideo();
-});
-
-socket.on("started video", (timeElapsed: number) => {
-    player.seekTo(timeElapsed, true);
-    player.playVideo();
-});
-
-socket.on("paused video", () => {
-    player.pauseVideo();
-});
-
 socket.on("connect", () => {
     // username = prompt("Add a username")!;
-    socket.emit("subscribe", { urlPath, username });
+    console.log("Hello world");
+    socket.emit("subscribe", urlPath, username);
 });
 
 socket.on("chat message", (chatMsg: string, username: string) => {
-    addChatNode(username, chatMsg, chatBox);
+    addChatNode(username, chatMsg, true, chatBox);
     scrollDown();
 });
 
 chatBtn.addEventListener("click", (e) => {
     const chatMsg = input.value.toString();
-    addChatNode(username, chatMsg, chatBox);
+    addChatNode(username, chatMsg, false, chatBox);
     chatBoxHeight = chatBox.scrollHeight;
     scrollDown();
     socket.emit("chat message", urlPath, chatMsg, username);
@@ -69,14 +62,23 @@ function getYouTubeId(url: string) {
 function addChatNode(
     username: string,
     message: string,
+    foreign: boolean,
     parentNode: HTMLUListElement
 ) {
     parentNode.insertAdjacentHTML(
         "beforeend",
         `
-            <li>${username}: ${message}</li>
+            <li class="${
+                foreign
+                    ? "chat__box-item chat__box-item--recieved"
+                    : "chat__box-item chat__box-item--sent"
+            }">
+                ${foreign ? `${username}: ` : ""} ${message}
+            </li>
         `
     );
 }
 
-function appendErrorMessage(message: string, parentNode: HTMLElement) {}
+function appendErrorMessage(message: string, parentNode: HTMLElement) {
+    //Error handling here
+}
