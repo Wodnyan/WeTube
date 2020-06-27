@@ -1,0 +1,115 @@
+@import "reset";
+
+:root {
+    --scale: 0;
+}
+
+#container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+
+section.main {
+    grid-column: 1/2;
+    height: 100%;
+    width: 100%;
+    .iframe-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .submit-video-container {
+        height: 24%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .submit-video {
+            position: relative;
+            display: flex;
+            border: 2px solid dodgerblue;
+            width: 35em;
+            #submit-video__input,
+            .submit-video__btn {
+                border: none;
+                background: transparent;
+                outline: none;
+            }
+            #submit-video__input {
+                flex-grow: 3;
+                padding: 0.5em;
+            }
+            .submit-video__btn {
+                padding: 1em 2em;
+                flex-grow: 1;
+                background-color: dodgerblue;
+                color: #fff;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+aside.chat {
+    grid-column: 2/3;
+    .chat__box {
+        height: 75vh;
+        padding: 0.5em;
+        overflow-y: scroll;
+        list-style: none;
+        .chat__box-item {
+            display: inline-block;
+            padding: 0.7em;
+            margin-bottom: 0.5em;
+            max-width: 70%;
+            clear: both;
+            background-color: dodgerblue;
+            color: #fff;
+        }
+        .chat__box-item--sent {
+            float: right;
+            border-radius: 1em 1em 0em 1em;
+        }
+        .chat__box-item--recieved {
+            float: left;
+            border-radius: 0em 1em 1em 1em;
+            color: #161616;
+            background: #cecece;
+        }
+    }
+    //Change this to chat__msg-input
+    .chat__msg {
+        width: 500px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    #container {
+        display: flex;
+        flex-direction: column;
+    }
+    section.main {
+        .submit-video-container {
+            .submit-video {
+                width: 100%;
+            }
+        }
+    }
+    aside.chat {
+        .chat__box {
+            height: 50vh;
+        }
+        .chat__msg {
+            width: 50%;
+        }
+    }
+}
