@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Room</title>
-</head>
-<body>
-    <section id="main">
-        <div id="player"></div>
-        <input type="text" name="youtube-video" id="submit-video-input">
-        <button class="submit-video-btn">Video</button>
-    </section>
-    <aside>
-        <ul class="chat__box"></ul>
-        <input type="text" name="chat-msg" id="chat__msg">
-        <button class="chat__btn">Send Message</button>
-    </aside>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
-    <script src="/scripts/youtube-player.js"></script>
-    <script src="/scripts/room.js"></script>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Room</title>
+        <link rel="stylesheet" href="/style/room.css" />
+    </head>
+    <body>
+        <div id="container">
+            <section class="main">
+                <div class="iframe-container">
+                    <div id="player"></div>
+                </div>
+                <div class="submit-video-container">
+                    <div class="submit-video">
+                        <input
+                            type="text"
+                            name="youtube-video"
+                            id="submit-video__input"
+                            placeholder="Put a YouTube link here..."
+                        />
+                        <button class="submit-video__btn">New Video</button>
+                    </div>
+                </div>
+            </section>
+            <aside class="chat">
+                <ul class="chat__box">
+                    <li class="chat__box-item chat__box-item--sent">
+                        What a great day we have.
+                    </li>
+                    <li class="chat__box-item chat__box-item--recieved">
+                        Not Gergo: Indeed.
+                    </li>
+                </ul>
+                <input
+                    type="text"
+                    name="chat message"
+                    class="chat__msg"
+                    placeholder="Write Something"
+                />
+                <button class="chat__btn">Send</button>
+            </aside>
+        </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+        <script src="/scripts/youtube-player.js"></script>
+        <script src="/scripts/room.js"></script>
+    </body>
 </html>
