@@ -1,8 +1,9 @@
 const chatBtn = document.querySelector(".chat__btn")!;
 const chatBox = <HTMLUListElement>document.querySelector(".chat__box")!;
-const input = <HTMLInputElement>document.querySelector(".chat__msg")!;
+const input = <HTMLInputElement>document.querySelector(".chat__form-input")!;
 // TODO: Make the ENTER work on chat
-const chatForm = <HTMLInputElement>document.querySelector(".chat-form")!;
+const chatForm = <HTMLFormElement>document.querySelector(".chat__form")!;
+console.log(chatForm);
 const urlPath = window.location.pathname;
 const changeVideoBtn = document.querySelector(".submit-video__btn")!;
 const changeVideoInput = <HTMLInputElement>(
@@ -36,14 +37,15 @@ socket.on("connect", () => {
 
 socket.on("chat message", (chatMsg: string, username: string) => {
     addChatNode(username, chatMsg, true, chatBox);
-    scrollDown();
+    scrollDown(chatBox, chatBox.scrollHeight);
 });
 
-chatBtn.addEventListener("click", (e) => {
+chatForm.addEventListener("submit", (event) => {
+    event.preventDefault();
     const chatMsg = input.value.toString();
     addChatNode(username, chatMsg, false, chatBox);
     chatBoxHeight = chatBox.scrollHeight;
-    scrollDown();
+    scrollDown(chatBox, chatBox.scrollHeight);
     socket.emit("chat message", urlPath, chatMsg, username);
     input.value = "";
 });

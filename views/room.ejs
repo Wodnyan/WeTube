@@ -33,13 +33,14 @@
                         Not Gergo: Indeed.
                     </li>
                 </ul>
-                <input
-                    type="text"
-                    name="chat message"
-                    class="chat__msg"
-                    placeholder="Write Something"
-                />
-                <button class="chat__btn">Send</button>
+                <form class="chat__form">
+                    <input
+                        type="text"
+                        class="chat__form-input"
+                        placeholder="Write Something"
+                    />
+                    <button class="chat__btn" type="submit">Send</button>
+                </form>
             </aside>
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>

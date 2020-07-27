@@ -87,8 +87,12 @@ aside.chat {
         }
     }
     //Change this to chat__msg-input
-    .chat__msg {
+    .chat__form {
         width: 500px;
+        display: flex;
+        input {
+            width: 100%;
+        }
     }
 }
 
